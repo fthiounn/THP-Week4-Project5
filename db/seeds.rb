@@ -20,7 +20,7 @@ require 'faker'
 
 nb_city = 50
 nb_user = 500
-nb_listing = 1
+nb_listing = 200
 nb_resa = 300
 nb_guest = 500
 cities = []
