@@ -1,20 +1,24 @@
 class Reservation < ApplicationRecord
   has_many :user_reservations
   belongs_to :listing
-  validates :start_date, presence: true 
-  validates :end_date, presence: true
+  validates_presence_of :start_date, :end_date
   validate :overlaping_reservation?
 
   def period
-    start_date..end_date
+    Time.at(end_date.to_i) - Time.at(start_date.to_i)
   end
-  def overlaping_reservation? 
 
+  def overlaping?
     # vérifie dans toutes les réservations du listing s'il y a une réservation qui tombe sur le datetime en entrée
-    other_bookings = Reservation.all
-    #1. check que end_date>start_date
-    #2. Pour chaque reservation existante :
-    # - si start_date < self.start_date => end date doit aussi etre
+    all_reservations = Reservation.all
+    all_reservations.each do |resa| 
+        return true if (start_date..end_date).overlaps?(resa.start_date..resa.end_date)
+    end
+    false
+  end
 
+  def overlaping_reservation?
+    errors.add(:base, 'Timedates overlaps') if overlaping?
+  end
 
 end
