@@ -59,8 +59,8 @@ nb_listing.times do |x|
   puts "Seeding Listing ##{x+1}"
 end
 #seeding resas between those dates
-t1 = Time.parse("2018-10-23 14:40:34")
-t2 = Time.parse("2021-01-01 00:00:00")
+t1 = Time.parse("2010-10-23 14:40:34")
+t2 = Time.parse("2030-01-01 00:00:00")
 nb_resa.times do |x|
   start = rand(t1..t2)
   resa = Reservation.create(

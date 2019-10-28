@@ -7,10 +7,11 @@ class Reservation < ApplicationRecord
   def period
     Time.at(end_date.to_i) - Time.at(start_date.to_i)
   end
-
+  #NOT WORKING !!!!!!!!!!!!!!!!!
   def overlaping?
     # vérifie dans toutes les réservations du listing s'il y a une réservation qui tombe sur le datetime en entrée
     all_reservations = Reservation.all
+    return false if all_reservations.empty?
     all_reservations.each do |resa| 
         return true if (start_date..end_date).overlaps?(resa.start_date..resa.end_date)
     end
